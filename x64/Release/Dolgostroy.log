@@ -1,4 +1,0 @@
-﻿  Dolgostroy.cpp
-raylib.lib(rcore.obj) : error LNK2001: unresolved external symbol timeBeginPeriod
-raylib.lib(rcore.obj) : error LNK2001: unresolved external symbol timeEndPeriod
-E:\Dolgostroy\x64\Release\Dolgostroy.exe : fatal error LNK1120: 2 unresolved externals
