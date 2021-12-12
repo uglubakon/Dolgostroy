@@ -4,6 +4,7 @@
 
 int Points = 0;
 int AmountOfProducersOne = 0;
+int CostOfProducerOne = 30;
 
 void ProducerOne() 
 {
@@ -51,9 +52,11 @@ int main(void)
         std::string FormatedString = PointsText + PointsToText;
         DrawText(FormatedString.c_str(), 100, 100, 20, BLACK);
         if(IsMouseButtonReleased(0) && MouseX > PointsButtonPosX && MouseY > PointsButtonPosY 
-                                    && MouseX < PointsButtonPosX + PointsButtonWidth && MouseY < PointsButtonPosY + PointsButtonHeight)
-        {
-            Points++;
+                                    && MouseX < PointsButtonPosX + PointsButtonWidth && MouseY < PointsButtonPosY + PointsButtonHeight
+                                    && Points >= CostOfProducerOne)
+        { 
+            AmountOfProducersOne++;
+            CostOfProducerOne *= 2;
         }
         EndDrawing(); 
     }
