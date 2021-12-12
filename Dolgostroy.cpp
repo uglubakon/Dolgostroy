@@ -8,7 +8,7 @@ int CostOfProducerOne = 30;
 
 void ProducerOne() 
 {
-    Points + 1 * AmountOfProducersOne;
+    Points = Points + 1 * AmountOfProducersOne;
 }
 
 int main(void)
@@ -56,6 +56,7 @@ int main(void)
                                     && Points >= CostOfProducerOne)
         { 
             AmountOfProducersOne++;
+            Points = Points - CostOfProducerOne;
             CostOfProducerOne *= 2;
         }
         EndDrawing(); 
