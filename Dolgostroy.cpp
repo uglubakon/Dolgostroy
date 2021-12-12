@@ -51,6 +51,7 @@ int main(void)
         std::string PointsToText = std::to_string(Points);
         std::string FormatedString = PointsText + PointsToText;
         DrawText(FormatedString.c_str(), 100, 100, 20, BLACK);
+        DrawText("Producer I", 200, 200, 20, BLACK);
         if(IsMouseButtonReleased(0) && MouseX > PointsButtonPosX && MouseY > PointsButtonPosY 
                                     && MouseX < PointsButtonPosX + PointsButtonWidth && MouseY < PointsButtonPosY + PointsButtonHeight
                                     && Points >= CostOfProducerOne)
