@@ -2,27 +2,53 @@
 #include "raylib.h"
 #include <string>
 
+//IDC
+std::string PointsText = "Points: ";
+
+//BUTTON PLACEMENT
+int PointsButtonPosX = 150;
+int PointsButtonPosY = 200;
+int PointsButtonWidth = 100;
+int PointsButtonHeight = 50;
+
+//COUNTERS
+int FrameCounterOneSecondPoints = 0;
+int FrameCounterOneSecondProducerOne = 0;
+
+//ECONOMY
 int Points = 0;
 int AmountOfProducersOne = 0;
 int CostOfProducerOne = 30;
 
-void ProducerOne() 
+void ProducerOne()
 {
     Points = Points + 1 * AmountOfProducersOne;
 }
 
+void FrameCounterOneSecondProducerOneFunc() 
+{
+    FrameCounterOneSecondProducerOne++;
+    if (FrameCounterOneSecondProducerOne == 60)
+    {
+        ProducerOne();
+        FrameCounterOneSecondProducerOne = 0;
+    }
+}
+
+void FrameCounterOneSecondPointsFunc() 
+{
+    FrameCounterOneSecondPoints++;
+    if (FrameCounterOneSecondPoints == 60)
+    {
+        Points = Points++;
+        FrameCounterOneSecondPoints = 0;
+    }
+}
+
+
 int main(void)
 {
     InitWindow(800, 450, "raylib [core] example - basic window");
-    
-    int FrameCounterOneSecondPoints = 0;
-    int FrameCounterOneSecondProducerOne = 0;
-    std::string PointsText = "Points: ";
-    int PointsButtonPosX = 150;
-    int PointsButtonPosY = 200;
-    int PointsButtonWidth = 100;
-    int PointsButtonHeight = 50;
-    
 
     SetTargetFPS(60);
 
@@ -32,20 +58,8 @@ int main(void)
         ClearBackground(WHITE);
         int MouseX = GetMouseX();
         int MouseY = GetMouseY();
-        FrameCounterOneSecondPoints++;
-
-        if (FrameCounterOneSecondPoints == 60)
-        {
-            Points++;
-            FrameCounterOneSecondPoints = 0;
-        }
-
-        FrameCounterOneSecondProducerOne++;
-        if (FrameCounterOneSecondProducerOne == 60)
-        {
-            ProducerOne();
-            FrameCounterOneSecondProducerOne = 0;
-        }
+        FrameCounterOneSecondPointsFunc();
+        FrameCounterOneSecondProducerOneFunc();
 
         DrawRectangle(150, 200, 100, 50, BLACK);
         std::string PointsToText = std::to_string(Points);
