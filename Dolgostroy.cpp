@@ -2,24 +2,36 @@
 #include "raylib.h"
 #include <string>
 
-//IDC
+//STRING VAR
 std::string PointsText = "Points: ";
 
-//BUTTON PLACEMENT
-int PointsButtonPosX = 100;
-int PointsButtonPosY = 200;
-int PointsButtonWidth = 100;
-int PointsButtonHeight = 50;
+//BUTTON POSITIONS
+int ProducerOneButtonPosX = 100; int ProducerOneButtonPosY = 100; int ProducerOneButtonWidth = 133; int ProducerOneButtonHeight = 30;
+int ProducerTwoButtonPosX = 100; int ProducerTwoButtonPosY = 166; int ProducerTwoButtonWidth = 133; int ProducerTwoButtonHeight = 30;
+int ProducerThreeButtonPosX = 100; int ProducerThreeButtonPosY = 233; int ProducerThreeButtonWidth = 133; int ProducerThreeButtonHeight = 30;
+int ProducerFourButtonPosX = 100; int ProducerFourButtonPosY = 300; int ProducerFourButtonWidth = 133; int ProducerFourButtonHeight = 30;
+int ProducerFiveButtonPosX = 100; int ProducerFiveButtonPosY = 366; int ProducerFiveButtonWidth = 133; int ProducerFiveButtonHeight = 30;
 
 //COUNTERS
 int FrameCounterOneSecondPoints = 0;
 int FrameCounterOneSecondProducerOne = 0;
+int FrameCounterOneSecondProducerTwo = 0;
+int FrameCounterOneSecondProducerThree = 0;
+int FrameCounterOneSecondProducerFour = 0;
+int FrameCounterOneSecondProducerFive = 0;
 
 //ECONOMY
 int Points = 0;
 int AmountOfProducersOne = 0;
-int CostOfProducerOne = 30;
-int CostOfProducerTwo = 120;
+int AmountOfProducersTwo = 0;
+int AmountOfProducersThree = 0;
+int AmountOfProducersFour = 0;
+int AmountOfProducersFive = 0;
+int CostOfProducerOne = 10;
+int CostOfProducerTwo = 10;
+int CostOfProducerThree = 10;
+int CostOfProducerFour = 10;
+int CostOfProducerFive = 10;
 
 //PRODUCER EXECS
 
@@ -30,22 +42,22 @@ void ProducerOne()
 
 void ProducerTwo()
 {
-    Points = Points + 5 * AmountOfProducersOne;
+    Points = Points + 5 * AmountOfProducersTwo;
 }
 
 void ProducerThree()
 {
-    Points = Points + 20 * AmountOfProducersOne;
+    Points = Points + 20 * AmountOfProducersThree;
 }
 
 void ProducerFour()
 {
-    Points = Points + 50 * AmountOfProducersOne;
+    Points = Points + 50 * AmountOfProducersFour;
 }
 
 void ProducerFive()
 {
-    Points = Points + 100 * AmountOfProducersOne;
+    Points = Points + 100 * AmountOfProducersFive;
 }
 
 void FrameCounterOneSecondProducerOneFunc() 
@@ -55,6 +67,46 @@ void FrameCounterOneSecondProducerOneFunc()
     {
         ProducerOne();
         FrameCounterOneSecondProducerOne = 0;
+    }
+}
+
+void FrameCounterOneSecondProducerTwoFunc()
+{
+    FrameCounterOneSecondProducerTwo++;
+    if (FrameCounterOneSecondProducerTwo == 60)
+    {
+        ProducerTwo();
+        FrameCounterOneSecondProducerTwo = 0;
+    }
+}
+
+void FrameCounterOneSecondProducerThreeFunc()
+{
+    FrameCounterOneSecondProducerThree++;
+    if (FrameCounterOneSecondProducerThree == 60)
+    {
+        ProducerThree();
+        FrameCounterOneSecondProducerThree = 0;
+    }
+}
+
+void FrameCounterOneSecondProducerFourFunc()
+{
+    FrameCounterOneSecondProducerFour++;
+    if (FrameCounterOneSecondProducerFour == 60)
+    {
+        ProducerFour();
+        FrameCounterOneSecondProducerFour = 0;
+    }
+}
+
+void FrameCounterOneSecondProducerFiveFunc()
+{
+    FrameCounterOneSecondProducerFive++;
+    if (FrameCounterOneSecondProducerFive == 60)
+    {
+        ProducerFive();
+        FrameCounterOneSecondProducerFive = 0;
     }
 }
 
@@ -71,7 +123,7 @@ void FrameCounterOneSecondPointsFunc()
 
 int main(void)
 {
-    InitWindow(800, 450, "raylib [core] example - basic window");
+    InitWindow(333, 450, "Point Producer 0.0.1 Debug");
 
     SetTargetFPS(60);
 
@@ -102,19 +154,67 @@ int main(void)
         //COUNTER CALLS
         FrameCounterOneSecondPointsFunc();
         FrameCounterOneSecondProducerOneFunc();
+        FrameCounterOneSecondProducerTwoFunc();
+        FrameCounterOneSecondProducerThreeFunc();
+        FrameCounterOneSecondProducerFourFunc();
+        FrameCounterOneSecondProducerFiveFunc();
 
+        //INT TO TEXT TRANSMUTATION
         std::string PointsToText = std::to_string(Points);
         std::string FormatedString = PointsText + PointsToText;
-        DrawText(FormatedString.c_str(), 110, 50, 20, BLACK);
-        if(IsMouseButtonReleased(0) && MouseX > PointsButtonPosX && MouseY > PointsButtonPosY 
-                                    && MouseX < PointsButtonPosX + PointsButtonWidth 
-                                    && MouseY < PointsButtonPosY + PointsButtonHeight
+        DrawText(FormatedString.c_str(), 122, 50, 20, BLACK);
+
+        //MOUSE CLICKS
+        if(IsMouseButtonReleased(0) && MouseX > ProducerOneButtonPosX && MouseY > ProducerOneButtonPosY 
+                                    && MouseX < ProducerOneButtonPosX + ProducerOneButtonWidth
+                                    && MouseY < ProducerOneButtonPosY + ProducerOneButtonHeight
                                     && Points >= CostOfProducerOne)
         { 
             AmountOfProducersOne++;
             Points = Points - CostOfProducerOne;
             CostOfProducerOne *= 2;
         }
+
+        if(IsMouseButtonReleased(0) && MouseX > ProducerTwoButtonPosX && MouseY > ProducerTwoButtonPosY 
+                                    && MouseX < ProducerTwoButtonPosX + ProducerTwoButtonWidth
+                                    && MouseY < ProducerTwoButtonPosY + ProducerTwoButtonHeight
+                                    && Points >= CostOfProducerTwo)
+        { 
+            AmountOfProducersTwo++;
+            Points = Points - CostOfProducerTwo;
+            CostOfProducerTwo *= 2;
+        }
+
+        if(IsMouseButtonReleased(0) && MouseX > ProducerThreeButtonPosX && MouseY > ProducerThreeButtonPosY 
+                                    && MouseX < ProducerThreeButtonPosX + ProducerThreeButtonWidth
+                                    && MouseY < ProducerThreeButtonPosY + ProducerThreeButtonHeight
+                                    && Points >= CostOfProducerThree)
+        { 
+            AmountOfProducersThree++;
+            Points = Points - CostOfProducerThree;
+            CostOfProducerThree *= 2;
+        }
+
+        if(IsMouseButtonReleased(0) && MouseX > ProducerFourButtonPosX && MouseY > ProducerFourButtonPosY 
+                                    && MouseX < ProducerFourButtonPosX + ProducerFourButtonWidth
+                                    && MouseY < ProducerFourButtonPosY + ProducerFourButtonHeight
+                                    && Points >= CostOfProducerFour)
+        { 
+            AmountOfProducersFour++;
+            Points = Points - CostOfProducerFour;
+            CostOfProducerFour *= 2;
+        }
+
+        if(IsMouseButtonReleased(0) && MouseX > ProducerFiveButtonPosX && MouseY > ProducerFiveButtonPosY
+                                    && MouseX < ProducerFiveButtonPosX + ProducerFiveButtonWidth
+                                    && MouseY < ProducerFiveButtonPosY + ProducerFiveButtonHeight
+                                    && Points >= CostOfProducerFive)
+        { 
+            AmountOfProducersFive++;
+            Points = Points - CostOfProducerFive;
+            CostOfProducerFive *= 2;
+        }
+
         EndDrawing(); 
     }
     
