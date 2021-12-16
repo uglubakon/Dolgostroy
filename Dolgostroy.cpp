@@ -1,6 +1,7 @@
 
 #include "raylib.h"
 #include <string>
+#include <Header.h>
 
 //STRING VAR
 std::string PointsText = "Points: ";
@@ -59,6 +60,8 @@ void ProducerFive()
 {
     Points = Points + 100 * AmountOfProducersFive;
 }
+
+//COUNTERS
 
 void FrameCounterOneSecondProducerOneFunc() 
 {
